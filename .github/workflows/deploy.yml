@@ -22,8 +22,11 @@ jobs:
         if [ "$(ls -A ./source/_posts/)" ]; then
           sshpass -p "${{ secrets.SERVER_PASSWORD }}" rsync -avz --ignore-errors --delete --progress -e "ssh -o StrictHostKeyChecking=no" ./source/_posts/ root@${{ secrets.SERVER_HOST }}:/blog/source/_posts/
         else
-          echo "No files to sync in ./source/_posts/, copying keep.md"
-          sshpass -p "${{ secrets.SERVER_PASSWORD }}" rsync -avz -e "ssh -o StrictHostKeyChecking=no" root@${{ secrets.SERVER_HOST }}:/blog/keep.md root@${{ secrets.SERVER_HOST }}:/blog/source/_posts/keep.md
+          echo "No files to sync in ./source/_posts/, deploying keep.md instead."
+          echo "Deleting existing posts on server..."
+          sshpass -p "${{ secrets.SERVER_PASSWORD }}" ssh -o StrictHostKeyChecking=no root@${{ secrets.SERVER_HOST }} "rm -rf /blog/source/_posts/*"
+          echo "Copying keep.md to server..."
+          sshpass -p "${{ secrets.SERVER_PASSWORD }}" rsync -avz --progress -e "ssh -o StrictHostKeyChecking=no" ./source/_posts/keep.md root@${{ secrets.SERVER_HOST }}:/blog/source/_posts/
         fi
 
     # 在服务器上执行 Hexo 相关命令
