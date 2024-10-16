@@ -19,11 +19,7 @@ jobs:
       # 使用 rsync 连接到你的服务器
       - name: Copy files to server using rsync
         run: |
-          if [ "$(ls -A ./source/_posts/)" ]; then
-            sshpass -p "${{ secrets.SERVER_PASSWORD }}" rsync -avz --ignore-errors --delete --progress -e "ssh -o StrictHostKeyChecking=no" ./source/_posts/ root@${{ secrets.SERVER_HOST }}:/blog/source/_posts/
-          else
-            echo "No files to sync in ./source/_posts/"
-          fi
+          sshpass -p "${{ secrets.SERVER_PASSWORD }}" rsync -avz --ignore-errors --delete --progress -e "ssh -o StrictHostKeyChecking=no" ./source/_posts/ root@${{ secrets.SERVER_HOST }}:/blog/source/_posts/
 
       # 在服务器上执行 Hexo 相关命令
       - name: Run hexo commands on server
