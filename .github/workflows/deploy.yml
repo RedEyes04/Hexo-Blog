@@ -16,24 +16,15 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    # 使用 SSH 连接到你的服务器
-    - name: Copy files to server
-      uses: appleboy/scp-action@v0.1.6
-      with:
-        host: ${{ secrets.SERVER_HOST }}  # 从 GitHub Secrets 中获取服务器地址
-        username: root  # 使用 root 用户
-        key: ${{ secrets.SERVER_SSH_KEY }}  # 从 GitHub Secrets 中获取 SSH 私钥
-        source: "source/_posts/*"  # 只同步 _posts 目录下的文件
-        target: "/blog/source/_posts"  # 服务器上对应的 _posts 目录路径
-
+    # 使用 rsync 将文件同步到服务器
+    - name: Deploy with rsync
+      run: |
+        sudo apt-get install -y rsync
+        rsync -avz -e "ssh -o StrictHostKeyChecking=no" source/_posts/ root@${{ secrets.SERVER_HOST }}:/blog/source/_posts/
+      env:
+        RSYNC_RSH: 'ssh -i "${{ secrets.SERVER_SSH_KEY }}"'
+      
     # 在服务器上执行 Hexo 相关命令
     - name: Run hexo commands on server
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SERVER_HOST }}
-        username: root  # 使用 root 用户
-        key: ${{ secrets.SERVER_SSH_KEY }}
-        script: |
-          cd /blog  # 进入服务器上的 Hexo 目录
-          hexo g  # 生成静态文件
-          hexo d  # 部署博客
+      run: |
+        ssh -o StrictHostKeyChecking=no -i "${{ secrets.SERVER_SSH_KEY }}" root@${{ secrets.SERVER_HOST }} "cd /blog && hexo g && hexo d"
