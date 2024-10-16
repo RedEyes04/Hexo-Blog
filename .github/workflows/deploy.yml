@@ -3,29 +3,25 @@ name: Deploy Hexo Blog
 on:
   push:
     branches:
-      - main  # 监听推送到 main 分支的操作
+      - main
     paths:
-      - 'source/_posts/**'  # 只在 source/_posts 下的文件变化时触发
+      - 'source/_posts/**'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 检出仓库的最新版本
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 安装 sshpass 和 rsync
       - name: Install sshpass
         run: sudo apt-get install -y sshpass
 
-      # 使用 rsync 将文件复制到服务器
       - name: Copy files to server using rsync
         run: |
-          echo "${{ secrets.SERVER_PASSWORD }}" | rsync -avz --progress -e "sshpass -e ssh -o StrictHostKeyChecking=no" ./source/_posts/ root@${{ secrets.SERVER_HOST }}:/blog/source/_posts/
+          sshpass -p "${{ secrets.SERVER_PASSWORD }}" rsync -avz --progress -e "ssh -o StrictHostKeyChecking=no" ./source/_posts/ root@${{ secrets.SERVER_HOST }}:/blog/source/_posts/
 
-      # 在服务器上执行 Hexo 相关命令
       - name: Run hexo commands on server
         run: |
-          sshpass -e ssh -o StrictHostKeyChecking=no root@${{ secrets.SERVER_HOST }} "cd /blog && hexo g && hexo d"
+          sshpass -p "${{ secrets.SERVER_PASSWORD }}" ssh -o StrictHostKeyChecking=no root@${{ secrets.SERVER_HOST }} "cd /blog && hexo g && hexo d"
