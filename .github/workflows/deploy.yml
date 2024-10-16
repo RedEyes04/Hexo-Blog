@@ -25,7 +25,7 @@ jobs:
 
       - name: Copy files to server using rsync
         run: |
-          sshpass -p "${{ secrets.SERVER_PASSWORD }}" rsync -avz --progress -e "ssh -o StrictHostKeyChecking=no" ./source/_posts/ root@${{ secrets.SERVER_HOST }}:/blog/source/_posts/
+          sshpass -p "${{ secrets.SERVER_PASSWORD }}" rsync -avz --ignore-errors --delete --progress -e "ssh -o StrictHostKeyChecking=no" ./source/_posts/ root@${{ secrets.SERVER_HOST }}:/blog/source/_posts/
 
       - name: Run hexo commands on server
         run: |
