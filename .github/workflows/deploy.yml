@@ -6,6 +6,11 @@ on:
       - main
     paths:
       - 'source/_posts/**'
+  delete:
+    branches:
+      - main
+    paths:
+      - 'source/_posts/**'
 
 jobs:
   deploy:
