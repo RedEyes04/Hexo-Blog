@@ -1,0 +1,28 @@
+name: Deploy Hexo Blog
+
+on:
+  push:
+    branches:
+      - main  # 或你的目标分支
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Sync with server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}  # 服务器 IP
+          username: ${{ secrets.SSH_USERNAME }}  # SSH 用户名
+          key: ${{ secrets.SSH_PRIVATE_KEY }}  # SSH 私钥
+          port: 22
+          source: "source/_posts/*"  # 源文件路径
+          target: "/blog/source/_posts"  # 目标路径
+
+      - name: Run hexo g
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SERVER_IP }} "cd /path/to/your/blog && hexo g && hexo d"
