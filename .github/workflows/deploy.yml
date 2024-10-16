@@ -12,19 +12,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # 检出仓库的最新版本
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      # 检出仓库的最新版本
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    # 使用 rsync 将文件同步到服务器
-    - name: Deploy with rsync
-      run: |
-        sudo apt-get install -y rsync
-        rsync -avz -e "ssh -o StrictHostKeyChecking=no" source/_posts/ root@${{ secrets.SERVER_HOST }}:/blog/source/_posts/
-      env:
-        RSYNC_RSH: 'ssh -i "${{ secrets.SERVER_SSH_KEY }}"'
-      
-    # 在服务器上执行 Hexo 相关命令
-    - name: Run hexo commands on server
-      run: |
-        ssh -o StrictHostKeyChecking=no -i "${{ secrets.SERVER_SSH_KEY }}" root@${{ secrets.SERVER_HOST }} "cd /blog && hexo g && hexo d"
+      # 安装 sshpass 和 rsync
+      - name: Install sshpass
+        run: sudo apt-get install -y sshpass
+
+      # 使用 rsync 将文件复制到服务器
+      - name: Copy files to server using rsync
+        run: |
+          echo "${{ secrets.SERVER_PASSWORD }}" | rsync -avz --progress -e "sshpass -e ssh -o StrictHostKeyChecking=no" ./source/_posts/ root@${{ secrets.SERVER_HOST }}:/blog/source/_posts/
+
+      # 在服务器上执行 Hexo 相关命令
+      - name: Run hexo commands on server
+        run: |
+          sshpass -e ssh -o StrictHostKeyChecking=no root@${{ secrets.SERVER_HOST }} "cd /blog && hexo g && hexo d"
