@@ -1,11 +1,11 @@
 ---
-title:
-  "{ title }": 
+title: Hexo搭建教程
 date:
   "{ date }": 
-tags: 
-top_img: 
-categories:
+tags:
+  - HEXO
+top_img: http://bucket.redeyes.top/2024/10/16/670fb5395bd2a.webp
+categories: Hexo相关
 ---
 ## 前言
 这篇文章将会教你非常详细用hexo来做一个自己的文章，可以是无服务器也可以是有服务器，那先说有服务器的那一套吧
