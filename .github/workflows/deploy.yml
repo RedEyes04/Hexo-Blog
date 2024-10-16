@@ -24,7 +24,7 @@ jobs:
         username: ${{ secrets.SERVER_USER }}  # 从 GitHub Secrets 中获取用户名
         key: ${{ secrets.SERVER_SSH_KEY }}  # 从 GitHub Secrets 中获取 SSH 私钥
         source: "source/_posts/*"  # 只同步 _posts 目录下的文件
-        target: "/path/to/your/blog/source/_posts"  # 服务器上对应的 _posts 目录路径
+        target: "/blog/source/_posts"  # 服务器上对应的 _posts 目录路径
 
     # 在服务器上执行 Hexo 相关命令
     - name: Run hexo commands on server
