@@ -1,0 +1,42 @@
+name: Deploy Hexo Blog
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'source/_posts/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Copy files to server
+        uses: appleboy/scp-action@v0.1.6
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          source: "source/_posts/*"
+          target: "/blog/source/_posts"
+          port: 22  # 如果使用非标准端口，记得修改
+
+      - name: Debug SSH connection
+        run: |
+          echo "Debugging SSH connection..."
+          ssh -vvv -i ${{ secrets.SERVER_SSH_KEY }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "echo 'SSH connection successful'"
+      
+      - name: Run hexo commands on server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            cd /path/to/your/blog
+            hexo g
+            hexo d
