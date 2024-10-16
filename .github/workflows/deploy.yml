@@ -16,25 +16,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 检查 _posts 目录是否存在
-      - name: Check if _posts directory exists
-        run: |
-          if [ ! -d "./source/_posts" ]; then
-            echo "Directory ./source/_posts does not exist. Exiting."
-            exit 1
-          fi
-
       # 使用 rsync 连接到你的服务器
       - name: Copy files to server using rsync
         run: |
           # 检查 _posts 目录是否为空
-          if [ "$(ls -A ./source/_posts/)" ]; then
+          if [ -z "$(ls -A ./source/_posts/)" ]; then
+            echo "No posts found. Deleting all files in /blog/source/_posts/ on the server."
+            sshpass -p "${{ secrets.SERVER_PASSWORD }}" ssh -o StrictHostKeyChecking=no root@${{ secrets.SERVER_HOST }} "rm -rf /blog/source/_posts/*"
+          else
             echo "Syncing files..."
             sshpass -p "${{ secrets.SERVER_PASSWORD }}" rsync -avz --ignore-errors --delete --progress -e "ssh -o StrictHostKeyChecking=no" ./source/_posts/ root@${{ secrets.SERVER_HOST }}:/blog/source/_posts/
-          else
-            echo "No files to sync in ./source/_posts/. Copying keep.md instead."
-            # 复制 keep.md 文件到服务器
-            sshpass -p "${{ secrets.SERVER_PASSWORD }}" rsync -avz --progress -e "ssh -o StrictHostKeyChecking=no" ./source/_posts/keep.md root@${{ secrets.SERVER_HOST }}:/blog/source/_posts/
           fi
 
       # 在服务器上执行 Hexo 相关命令
@@ -43,4 +34,5 @@ jobs:
           sshpass -p "${{ secrets.SERVER_PASSWORD }}" ssh -o StrictHostKeyChecking=no root@${{ secrets.SERVER_HOST }} << 'EOF'
             cd /blog  # 进入服务器上的 Hexo 目录
             hexo g  # 生成静态文件
+            hexo d  # 部署博客
           EOF
