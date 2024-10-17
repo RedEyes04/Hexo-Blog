@@ -1,15 +1,17 @@
 ---
-title: Hexo搭建教程「VPS」+「宝塔」
+title: Hexo搭建教程「VPS」+「宝塔nignx」
 date:
   "{ date }": 
 tags:
   - HEXO
-top_img: http://bucket.redeyes.top/2024/10/16/670fb5395bd2a.webp
+top_img: https://bucket.redeyes.top/2024/10/16/670fb5395bd2a.webp
 categories: Hexo相关
-cover: http://bucket.redeyes.top/2024/10/16/670fb5395bd2a.webp
+cover: https://bucket.redeyes.top/2024/10/16/670fb5395bd2a.webp
 ---
 ## 前言
-这篇文章将会教你非常详细用hexo来做一个自己的个人博客，可以是无服务器也可以是有服务器，那先说有服务器的那一套吧
+本篇文章将会教你从头开始教你一种，目前网络上最流畅、最快的hexo部署在vps服务器的方案！
+
+
 # 服务器相关
 ## 服务器选择
 这里推荐大家去用阿里云的~~飞天计划给的服务器~~，（飞天计划貌似已经被取消了，之后[天工开物](https://university.aliyun.com/)计划还在）有七个月，最后如果符合在校或者在教育机构工作的话，天工开物还能获得300元的无门槛券，能续上三个月，一共加起来就是十个月，这里给大家 飞天计划的链接大家，完成一些相应的操作就行了，很简单，这里不过多赘述
@@ -37,4 +39,36 @@ cover: http://bucket.redeyes.top/2024/10/16/670fb5395bd2a.webp
 ## 添加网站
 到宝塔面板里添加网站，因为hexo是静态网站，所以下面我们不要勾选PHP版本，也不要建立相应的数据库，然后输入刚刚添加的网站记录
 ## SSL证书申请
-接着我们要申请相应网站的SSL证书，直接选择上面的 「Let's Encrypt」 只要前面一步正确进行了DNS解析就会成功获得相应的证书，点击保存，开启强制https。接着我们访问网站就会得到一下的页面
+接着我们要申请相应网站的SSL证书，直接选择上面的 「Let's Encrypt」 只要前面一步正确进行了DNS解析就会成功获得相应的证书，点击保存，开启强制https。接着就可以访问页面了！
+
+# HEXO安装
+## nodejs安装
+首先根据官网给的文章，安装hexo之前要先安装nodejs，现进入nodejs的官网，点击【】下载，然后我们使用xshell里的xftp工具传上去，接着我们输入
+```
+tar
+```
+进行解压，接着我们给解压完的文件夹换个名字
+```
+mv
+```
+然后我们也还可以把原压缩包删除
+```
+rm -f 
+```
+接着设置软链接，注意这里的地址根据你的实际地址来定，我的是放在root目录，也就是（~）/「nodejs」 这样的root目录在整个目录的位置是这样的/root/「nodejs」或者~/nodejs
+```
+ln -s ~/nodejs/bin/node /usr/local/bin/
+```
+```
+ln -s ~/nodejs/bin/npm /usr/local/bin/
+```
+接着我们来验证一下是否安装成功
+分别输入
+```
+node -v
+```
+
+```
+npm -v
+```
+如果能出现版本号那就是安装成功了
