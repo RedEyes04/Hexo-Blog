@@ -1,5 +1,5 @@
 ---
-title: Hexo搭建教程「VPS」+「宝塔nignx」
+title: "[更新ing]Hexo搭建教程「VPS」+「宝塔nignx」"
 date:
   "{ date }": 
 tags:
