@@ -72,3 +72,321 @@ node -v
 npm -v
 ```
 如果能出现版本号那就是安装成功了
+
+## 安装hexo脚手架
+```
+npm install hexo-cli -g
+```
+
+安装完为了方便使用，我们给hexo也做个软链接，方法和上面一样
+```
+ln -s ~/nodejs/bin/hexo /usr/local/bin/
+```
+
+
+同样的，我们软链接完可以用这个命令看一下是否正确进行了软链接
+```
+hexo -v
+```
+
+## 初始化hexo内容
+
+接着我们到根目录（不是root目录），root的上一层目录，我们新建新的文件夹
+```
+mkdir blog
+```
+进入文件夹
+```
+cd blog
+```
+初始化内容
+```
+hexo init
+```
+稍等片刻后我们便能得到初始化的内容
+
+# VS Code 软件的安装和使用（如果已经会使用的可以跳过哦！）
+接下来我们会进行配置主题文件，如果我们使用xshell和xftp会不太方便，所以我们这里可以使用一款超级好用的软件！Vscode 我们直接进入[官网](https://code.visualstudio.com/)进行下载和安装！
+安装完进去后，我们点击右边的插件选项，搜索Chinese ，进行安装汉化
+安装完右下角会让你重启软件，重启完就汉化好了！
+## ssh🔗连接服务器
+我们点击左下角的，打开远程窗口，进行然后在上面输入相应的内容
+```
+ssh root@[你的IP地址]
+```
+输入完密码后会让你写入文件里，然后我们就成功连接上服务器了，但是你发现每次打开文件夹的时候都会让我们再次输入密码，很不方便，所以我们这里还要再配置以下免密ssh链接
+
+
+
+
+
+
+## 应用主题
+# 配置主题
+## 安装anzhiyu主题
+
+```
+git clone -b main https://github.com/anzhiyu-c/hexo-theme-anzhiyu.git themes/anzhiyu
+```
+
+## 安装渲染插件
+
+```
+npm install hexo-renderer-pug hexo-renderer-stylus --save
+```
+
+## 优化覆盖配置
+
+```
+cp -rf ./themes/anzhiyu/_config.yml ./_config.anzhiyu.yml
+```
+我们安装完可以在theme文件夹里找到anzhiyu的主题文件，里面有个_config.yml，但是我们每次用命令更新完的时候，原有的配置文件会被覆盖掉，会有点麻烦，每次更新的时候要先复制一份，上面的代码是把_config.yml这个文件复制到/blog根目录，复制到根目录的文件优先级会比里面的优先级高，所有我们之后改一些配置直接改_config.anzhiyu.yml，就行了！
+
+
+接着我们在根目录找到文件_config.yml,往下翻,把theme改成anzhiyu
+找到
+```
+theme: anzhiyu
+```
+
+## Hexo命令简单学习
+```
+hexo g   ##根据_config.anzhiyu.yml的内容生成静态文件在根目录的public文件夹下
+hexo cl  ##清除public下所有文件夹
+hexo d   ##推送到远程仓库（我们这种方法用不到）
+hexo s   ##在服务器的4000端口开启服务器进程，可以进行访问
+```
+
+
+### 简单尝试
+我们可以在根_config.yml里面配置配置一些相关内容，然后服务器的本地端口开启hexo服务，以下是我的配置文件，我也会在后面写上相应注释，各位跟着后面改就行了
+
+```
+# Hexo Configuration
+
+## Docs: https://hexo.io/docs/configuration.html
+
+## Source: https://github.com/hexojs/hexo/
+
+  
+
+# Site
+
+title: REDEYESの小窝        ##浏览器导航栏显示的标题
+
+subtitle: '纵有疾风起，人生不言弃！'      ##浏览器导航栏显示的副标题
+
+description: 'REDEYES的博客'       ##博客的描述
+
+keywords:                  ##博客的关键词
+ 
+author: REDEYES             ##博客的作者，会影响到anzhiyu主题里作者的名字
+
+language: zh-CN          ##语言的设置  zh-CN为中文 
+
+timezone: ''            ##时区一般不要设置
+
+  
+
+# URL
+
+## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
+
+url: https://www.redeyes.top       ##博客的地址    下面就没什么要设置的了，现设置到这把！
+
+permalink: :year/:month/:day/:title/
+
+permalink_defaults:
+
+pretty_urls:
+
+  trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
+
+  trailing_html: true # Set to false to remove trailing '.html' from permalinks
+
+  
+
+# Directory
+
+source_dir: source
+
+public_dir: public
+
+tag_dir: tags
+
+archive_dir: archives
+
+category_dir: categories
+
+code_dir: downloads/code
+
+i18n_dir: :lang
+
+skip_render:
+
+  
+
+# Writing
+
+new_post_name: :title.md # File name of new posts
+
+default_layout: post
+
+titlecase: false # Transform title into titlecase
+
+external_link:
+
+  enable: true # Open external links in new tab
+
+  field: site # Apply to the whole site
+
+  exclude: ''
+
+filename_case: 0
+
+render_drafts: false
+
+post_asset_folder: false
+
+relative_link: false
+
+future: true
+
+syntax_highlighter: highlight.js
+
+highlight:
+
+  enable: true
+
+  line_number: true # <- 改这里
+
+  auto_detect: true
+
+  tab_replace:
+
+  wrap: true
+
+  hljs: false
+
+prismjs:
+
+  preprocess: true
+
+  line_number: true
+
+  tab_replace: ''
+
+  
+  
+
+# Home page setting
+
+# path: Root path for your blogs index page. (default = '')
+
+# per_page: Posts displayed per page. (0 = disable pagination)
+
+# order_by: Posts order. (Order by date descending by default)
+
+index_generator:
+
+  path: ''
+
+  per_page: 10
+
+  order_by: -date
+
+  
+
+# Category & Tag
+
+default_category: uncategorized
+
+category_map:
+
+tag_map:
+
+  
+
+# Metadata elements
+
+## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
+
+meta_generator: true
+
+  
+
+# Date / Time format
+
+## Hexo uses Moment.js to parse and display date
+
+## You can customize the date format as defined in
+
+## http://momentjs.com/docs/#/displaying/format/
+
+date_format: YYYY-MM-DD
+
+time_format: HH:mm:ss
+
+## updated_option supports 'mtime', 'date', 'empty'
+
+updated_option: 'mtime'
+
+  
+
+# Pagination
+
+## Set per_page to 0 to disable pagination
+
+per_page: 10
+
+pagination_dir: page
+
+  
+
+# Include / Exclude file(s)
+
+## include:/exclude: options only apply to the 'source/' folder
+
+include:
+
+exclude:
+
+ignore:
+
+  
+
+# Extensions
+
+## Plugins: https://hexo.io/plugins/
+
+## Themes: https://hexo.io/themes/
+
+theme: anzhiyu
+
+  
+  
+
+# Deployment
+
+## Docs: https://hexo.io/docs/one-command-deployment
+
+deploy:
+
+  type: ''
+```
+
+接着我们设置完，我们可以
+
+```
+hexo cl 
+```
+```
+hexo g
+```
+```
+hexo s
+```
+hexo 三连打开服务器
+
+
+# 仍在努力更新中！！
