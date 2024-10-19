@@ -5,7 +5,7 @@ date:
 tags:
   - HEXO
   - 搭建
-top_img: https://bucket.redeyes.top/2024/10/19/c021a3.webp
+top_img: https://bucket.redeyes.top/2024/10/19/d6f9c7.webp
 categories: Hexo相关
 cover: https://bucket.redeyes.top/2024/10/19/c021a3.webp
 id: hexo01
