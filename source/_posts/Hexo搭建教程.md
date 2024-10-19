@@ -1,13 +1,13 @@
 ---
-title: "[更新ing]Hexo搭建教程「VPS」+「宝塔nignx」"
+title: 最全最流畅 Hexo搭建教程「VPS」+「宝塔nignx」
 date:
   "{ date }": 
 tags:
   - HEXO
   - 搭建
-top_img: https://bucket.redeyes.top/2024/10/16/670fb5395bd2a.webp
+top_img: https://bucket.redeyes.top/2024/10/19/893ef0.webp
 categories: Hexo相关
-cover: https://bucket.redeyes.top/2024/10/16/670fb5395bd2a.webp
+cover: https://bucket.redeyes.top/2024/10/19/893ef0.webp
 ---
 ## 前言
 本篇文章将会教你从头开始教你一种，目前网络上最流畅、最快、最全面的hexo部署在vps服务器的方案！[anzhiyu 主题]
