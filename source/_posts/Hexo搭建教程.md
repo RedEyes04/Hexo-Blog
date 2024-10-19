@@ -10,7 +10,7 @@ categories: Hexo相关
 cover: https://bucket.redeyes.top/2024/10/16/670fb5395bd2a.webp
 ---
 ## 前言
-本篇文章将会教你从头开始教你一种，目前网络上最流畅、最快的hexo部署在vps服务器的方案！
+本篇文章将会教你从头开始教你一种，目前网络上最流畅、最快、最全面的hexo部署在vps服务器的方案！[anzhiyu 主题]
 
 # 服务器相关
 ## 服务器选择
@@ -66,17 +66,23 @@ cover: https://bucket.redeyes.top/2024/10/16/670fb5395bd2a.webp
 
 # HEXO安装
 ## nodejs安装
-首先根据官网给的文章，安装hexo之前要先安装nodejs，现进入nodejs的官网，点击【】下载，然后我们使用xshell里的xftp工具传上去，接着我们输入
+首先根据官网给的文章，安装hexo之前要先安装nodejs，现进入[nodejs的官网](https://nodejs.cn/download/)，点击[Linux 二进制文件 (x64)]下载。
+![image.png](https://bucket.redeyes.top/2024/10/19/1fe6af.png)
+
+然后我们使用xshell里的xftp工具传上去![image.png](https://bucket.redeyes.top/2024/10/19/312632.png)
+接着我们输入
+[这里的node-v20.18.0-linux-x64.tar.xz根据各位的文件夹而定，打一个node 然后tab补全就好了]
+
 ```
-tar
+tar -vxf node-v20.18.0-linux-x64.tar.xz   
 ```
 进行解压，接着我们给解压完的文件夹换个名字
 ```
-mv
+mv node-v20.18.0-linux-x64 nodejs
 ```
 然后我们也还可以把原压缩包删除
 ```
-rm -f 
+rm -f node-v20.18.0-linux-x64.tar.xz 
 ```
 接着设置软链接，注意这里的地址根据你的实际地址来定，我的是放在root目录，也就是（~）/「nodejs」 这样的root目录在整个目录的位置是这样的/root/「nodejs」或者~/nodejs
 ```
@@ -94,8 +100,27 @@ node -v
 ```
 npm -v
 ```
-如果能出现版本号那就是安装成功了
+![image.png](https://bucket.redeyes.top/2024/10/19/d3f684.png)
 
+如果能出现版本号那就是安装成功了
+## 更换npm源
+官方的源下载速度很慢我们这里可以去更换国内更快的源，比如说淘宝源，直接在命令行输入以下代码就行了
+```
+npm config set registry https://registry.npmmirror.com
+```
+## 安装Git
+安装前可以先看下自己有没有Git ，如果没有再进行以下步骤
+```
+git --version
+```
+首先更新一下软件包(适用于debian和unbantu)
+```
+apt-get update
+```
+安装Git
+```
+apt-get install git
+```
 ## 安装hexo脚手架
 ```
 npm install hexo-cli -g
@@ -172,13 +197,13 @@ IdentityFile '[刚刚生成的私钥地址(没有pub后缀的那个)]'    ##格�
 git clone -b main https://github.com/anzhiyu-c/hexo-theme-anzhiyu.git themes/anzhiyu
 ```
 ### 安装主题依赖
+安装渲染插件
 ```
-## 安装渲染插件
 npm install hexo-renderer-pug hexo-renderer-stylus --save
 ```
 ### 优化覆盖配置
+优化覆盖配置
 ```
-## 优化覆盖配置
 cp -rf ./themes/anzhiyu/_config.yml ./_config.anzhiyu.yml
 ```
 我们安装完可以在theme文件夹里找到anzhiyu的主题文件，里面有个_config.yml，但是我们每次用命令更新完的时候，原有的配置文件会被覆盖掉，所以每次更新的时候要先复制一份，会有点麻烦，上面的代码是把_config.yml这个文件复制到/blog根目录，复制到根目录的配置文件优先级会比里面的优先级高，所有我们之后改一些配置直接改_config.anzhiyu.yml，就行了！
@@ -193,6 +218,7 @@ hexo g   ##根据_config.anzhiyu.yml的内容生成静态文件在根目录的pu
 hexo cl  ##清除public下所有文件夹
 hexo d   ##推送到远程仓库（我们这种方法用不到）
 hexo s   ##在服务器的4000端口开启服务器进程，可以进行访问
+ctrl + c  ##结束hexo博客进程
 ```
 
 ## Hexo命令的简单尝试
@@ -214,5 +240,89 @@ hexo s
 ctrl + 左键打开网站，看看刚刚的有没有生效
 
 
+# 主题配置相关
+## 主题配置修改
+主题配置主要在我们复制在根目录下的_config.anzhiyu.yml这个里面进行，主要的一些办法就是把安知鱼给的一些注释删除，然后该一些false为true就可以了，这些根据[anzhiyu给的主题文档](https://docs.anheyu.com/initall.html)就可以进行配置了，具体如果有什么问题可以在评论下留言，下面我会教一些anzhiyu那边没有写全的教程
+## 字体修改
+首先我们要去字体网站找到自己合适的字体，这里可以去[字体天下](https://www.fonts.net.cn/)这个网站，找到合适的字体，我们可以先放到/blog/source的下面，然后我们在source下新建一个文件夹，再在文件夹里新建一个font.css，整体如下图所示
+![](https://bucket.redeyes.top/2024/10/19/0f0921.png)
 
+然后我们在font.css里输入以下内容，你可以把字体命名为我的字体名，建议使用woff2的格式，如果不是可以进入[这个网站](https://fontconverter.com/zh/)进行字体的格式转换
+```
+@font-face {
 
+    font-family: 'webfont';
+
+    font-display: swap;
+
+    src: url('../webfont.woff2') format('woff2');
+
+    font-weight: normal;
+
+    font-style: normal;    
+
+  }
+```
+保存，然后再进入_config.anzhiyu.yml，ctrl+F 搜索font-family，
+![image.png](https://bucket.redeyes.top/2024/10/19/755d5c.png)
+像这样填写，保存
+然后再ctrl+F 搜索 inject，在head部分插入以下内容，注意要对齐!
+```
+- <link rel="stylesheet" href="/css/font.css" />
+```
+![image.png](https://bucket.redeyes.top/2024/10/19/658e43.png)
+
+最后再Hexo三连，就可以看到效果了！
+![image.png](https://bucket.redeyes.top/2024/10/19/102270.png)
+字体发生了变化
+## 字体速度优化[待更新]
+但是我们发现这样的访问速度很慢，那就到了我们对象存储出现的时候了，这个我会在下一章单独出一个文章   《对象存储以及图床教程》
+## Twikoo评论系统的部署[待更新]
+Twikoo是个非常好用的博客评论系统，部署简单，功能强大，我也会在后面文章写一期教程
+# nignx大法好呀！
+在上面我们发现这个博客在我们关闭终端 或者 ctrl + c 关闭会话的时候会结束，而且访问很慢！网上也有不少的教程说的是可以用pm2进行一个进程的常驻，不过这样的方法有弊端
+1. 难以管理
+2. 进程占用大
+3. 访问速度慢
+4. 不直观
+所以我们这边可以用nignx来进行一个静态网站的访问，我们找到hexo是个静态网站，那么他的工作流程是怎么样的？如下面所示
+```
+hexo g  --->  生成静态文件
+```
+当我们进行了hexo cl 以及hexo g 的时候，我们会发现根目录下有哪个文件夹发生了变化？
+没错正是public文件夹
+![](https://bucket.redeyes.top/2024/10/19/088544.png)
+我们看文件夹里的文件，不难发现这就是通过hexo生成的一些网站文件，以及资源
+所以我们就可以在宝塔上面进行网站目录的更改，以及运行目录的更改，从而来实现hexo用nignx来访问的目的
+## 修改网站目和运行目录
+我们点击网站来修改相应的目录
+![image.png](https://bucket.redeyes.top/2024/10/19/d71ace.png)
+保存后我们再次访问，发现我们这样就可以成功访问网站了！
+![image.png](https://bucket.redeyes.top/2024/10/19/0d650e.png)
+## 注意事项⚠️
+在我们进行网站配置后我们要先进行
+```
+hexo cl
+```
+再进行
+```
+hexo g
+```
+前往不要图省事！
+在一些特定情况下，比如修改字体我们不能及时看见变化，是因为我们的浏览器缓存所致
+有如下方法办法，
+1. 第一个就是清除缓存和慢慢等，不过这样很影响我们浏览器的正常使用
+2. 第二个就是先开无痕模式进行网站配置修改查看
+3. 第三个，在终端里输入
+```
+hexo s
+```
+通过本地端口进行访问查看配置的修改
+5. 必要时在cmd终端里输入
+```
+ipconfig/flushdns
+```
+清除dns缓存
+# 大功告成！
+接下来我会出一些anzhiyu主题的优化美化功能
+以及博客撰写的一些方案[obsidian+github action]进行单软件撰写hexo文章，还能进行hexo博客的同步(hexo g)操作！[待更新]
