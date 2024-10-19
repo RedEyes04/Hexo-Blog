@@ -33,7 +33,7 @@ cover: https://bucket.redeyes.top/2024/10/16/670fb5395bd2a.webp
 
 # 域名相关
 ## 顶级域名购买
-域名购买的渠道很多，我这里用的[阿里云](https://dc.console.aliyun.com/next/index?spm=a2c1d.8251892.console-base_product-drawer-right.ddomain.57525b76mZdIzv#/overview)，第一年好像就9元，之后都是三十几一年，还是很便宜的，不过我们用的国内服务器，是需要进行备案的，这里只有一个地方要说一下，阿里云里备案是要一个备案码的，你可以去官方买一个99元/个，如果觉得贵的话也可以到一些小程序去买，像 备案狗十块左右就能买到了！![Uploading file...hda74]()
+域名购买的渠道很多，我这里用的[阿里云](https://dc.console.aliyun.com/next/index?spm=a2c1d.8251892.console-base_product-drawer-right.ddomain.57525b76mZdIzv#/overview)，第一年好像就9元，之后都是三十几一年，还是很便宜的，不过我们用的国内服务器，是需要进行备案的，这里只有一个地方要说一下，阿里云里备案是要一个备案码的，你可以去官方买一个99元/个，如果觉得贵的话也可以到一些小程序去买，像 备案狗十块左右就能买到了！
 
 ![image.png](https://bucket.redeyes.top/2024/10/19/cb8f00.png)
 
