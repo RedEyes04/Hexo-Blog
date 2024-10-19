@@ -8,6 +8,7 @@ tags:
 top_img: https://bucket.redeyes.top/2024/10/19/c021a3.webp
 categories: Hexo相关
 cover: https://bucket.redeyes.top/2024/10/19/c021a3.webp
+id: hexo01
 ---
 ## 前言
 本篇文章将会教你从头开始教你一种，目前网络上最流畅、最快、最全面的hexo部署在vps服务器的方案！[anzhiyu 主题]
