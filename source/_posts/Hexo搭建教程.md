@@ -1,8 +1,7 @@
 ---
 title: 最全最流畅 Hexo搭建教程「VPS」+「宝塔nignx」
 tags:
-  - HEXO
-  - 搭建
+  - Hexo
 top_img: https://bucket.redeyes.top/2024/10/20/b6eead.webp
 categories: Hexo相关
 cover: https://bucket.redeyes.top/2024/10/20/b6eead.webp
