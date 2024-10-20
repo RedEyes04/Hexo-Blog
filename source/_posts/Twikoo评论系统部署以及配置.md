@@ -2,10 +2,10 @@
 tags:
   - Twikoo
   - Hexo
-top_img: https://bucket.redeyes.top/2024/10/20/bc74a9.webp
+top_img: https://bucket.redeyes.top/2024/10/20/9adf5c.webp
 categories: Hexo相关
 title: Twikoo评论系统部署以及配置
-cover: https://bucket.redeyes.top/2024/10/20/bc74a9.webp
+cover: https://bucket.redeyes.top/2024/10/20/9adf5c.webp
 date: 2024-10-20T13:10:00
 ---
 本期教大家如何用Docker安装和配置Twikoo评论系统，根据Twikoo官方的文章有好几种部署方式，里面最简单的莫过于就是用Docker进行安装了！开始吧！
