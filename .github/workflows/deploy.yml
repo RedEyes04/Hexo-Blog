@@ -35,5 +35,5 @@ jobs:
         sshpass -p "${{ secrets.SERVER_PASSWORD }}" ssh -o StrictHostKeyChecking=no root@${{ secrets.SERVER_HOST }} << 'EOF'
           cd /blog  # 进入服务器上的 Hexo 目录
           hexo g  # 生成静态文件
-          hexo d  # 部署博客
+          
         EOF
