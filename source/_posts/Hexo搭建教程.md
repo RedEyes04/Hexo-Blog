@@ -7,6 +7,7 @@ categories: Hexo相关
 cover: https://bucket.redeyes.top/2024/10/20/b6eead.webp
 id: hexo01
 date: 2024-10-19T19:00:00
+ai: "true"
 ---
 ## 前言
 本篇文章将会教你从头开始教你一种，目前网络上最流畅、最快、最全面的hexo部署在vps服务器的方案！[anzhiyu 主题]
