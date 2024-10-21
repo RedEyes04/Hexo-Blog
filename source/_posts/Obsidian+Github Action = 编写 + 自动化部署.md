@@ -21,3 +21,56 @@ Github------>Obsidian(本电脑) (pull)
  
 Obsdian(本电脑)----->Github---->Github Action----> VPS（hexo g）
 ```
+
+# 服务器内容同步到Github仓库
+## Github上新建仓库
+首先进入Github首页新建一个仓库
+![image.png](https://bucket.redeyes.top/2024/10/21/15a947.png)
+## /blog下新建Git仓库
+```
+git init
+```
+![](https://bucket.redeyes.top/2024/10/21/3c7840.png)
+## 创建SSH密钥
+```
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"  ##换成你的邮箱
+```
+## 将公钥添加到Github
+进入首页点击头像进入 “settings”
+![image.png](https://bucket.redeyes.top/2024/10/21/22a197.png)
+再进入SSH and GPG Keys
+![image.png](https://bucket.redeyes.top/2024/10/21/97e95e.png)
+把生成的公钥的内容粘贴进去保存
+![image.png](https://bucket.redeyes.top/2024/10/21/ba962b.png)
+## 推送目录到仓库
+我们进入vs code 输入
+```
+git remote add origin git@github.com:yourusername/yourrepository.git
+```
+后面的   git@github.com:yourusername/yourrepository.git输入
+![image.png](https://bucket.redeyes.top/2024/10/21/90f478.png)
+SSH的地址
+### 移除嵌套的 Git 仓库
+
+```
+rm -rf themes/anzhiyu/.git
+```
+### 添加到暂存区
+
+```
+git add .
+```
+### 新建仓库用户
+```
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+```
+
+### 设置上游分区master并推送
+```
+git push --set-upstream origin master
+```
+
+我们再打开Github相应的仓库界面，就能发现已经全部同步过去了
+![image.png](https://bucket.redeyes.top/2024/10/21/58185c.png)
+## 拉取文件到本地Obsidian
